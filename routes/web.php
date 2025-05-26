@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     // Crear nuevas cotizaciones
     Route::middleware(['auth'])->group(function () {
-        Route::get('/cotizaciones/crear', [CotizacionController::class, 'create'])->name('cotizaciones.create');
+
     });
 
     Route::middleware('auth')->group(function () {
