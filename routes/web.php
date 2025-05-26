@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaController;
@@ -22,7 +23,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 // Cerrar sesión
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Rutas protegidas por login (cuando ya se está logueado)
+// Rutas protegidas por login
 Route::middleware('auth')->group(function () {
 
     // Menú principal
@@ -34,22 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/perfil/editar', [PerfilController::class, 'edit'])->name('profile.edit');
     Route::post('/perfil/editar', [PerfilController::class, 'update'])->name('profile.update');
 
-    // Ruta para crear categorías
-    Route::get('/categorias/create', [CategoriaController::class, 'create'])->name('categorias.create');
-
-    // Eliminar categorías
-    Route::delete('/categorias/{id}', [CategoriaController::class, 'destroy'])->name('categorias.destroy');
-
-    // Clientes (quizá agregue administradores)
-    Route::resource('clientes', ClienteController::class);
+    // Cotizaciones (se incluye todo: index, create, store, edit, update, destroy)
+    Route::resource('cotizaciones', CotizacionController::class)->except(['show']);
 
     // Categorías
     Route::resource('categorias', CategoriaController::class);
 
+    // Clientes
+    Route::resource('clientes', ClienteController::class);
+
     // Conceptos
     Route::resource('conceptos', ConceptoController::class);
-
-    // Cotizaciones
-    Route::resource('cotizaciones', CotizacionController::class); // ✅ Solo esta es suficiente
-
 });
