@@ -22,7 +22,7 @@ class CotizacionController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
-        return view('cotizaciones.crearcotizacion', compact('categorias'));
+        return view('Cotizaciones.crearcotizacion', compact('categorias'));
     }
 
     public function store(Request $request)
